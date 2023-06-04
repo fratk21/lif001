@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1063146948226",
+    "project_id": "lif3-001",
+    "storage_bucket": "lif3-001.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1063146948226:android:76efaf88ecd63207ffd69b",
+        "android_client_info": {
+          "package_name": "com.liff.lif001"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1063146948226-lnt9d88tdr71m7smll1kut2ukghkub91.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtFjrkTC5U0tStC81BkYy9DkOCia3zvPM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1063146948226-lnt9d88tdr71m7smll1kut2ukghkub91.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
