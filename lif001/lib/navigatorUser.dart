@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lif001/pages/LoginAndRegister/LoginAndRegister.dart';
+import 'package:lif001/pages/home/home.dart';
 import 'package:lif001/pages/onboarding/onboarding.dart';
+import 'package:lif001/pages/profile/profile.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class navigatorUser extends StatefulWidget {
@@ -65,4 +67,4 @@ class _navigatorUserState extends State<navigatorUser> {
   }
 }
 
-List<Widget> homeScreenItems = [loginpage(), onboarding_pages()];
+List<Widget> homeScreenItems = [homepages(), profilepages()];

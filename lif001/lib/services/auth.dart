@@ -29,10 +29,12 @@ class auth_services {
           email: email,
           password: password,
         );
-        await _firestore
-            .collection("users")
-            .doc(cred.user!.uid)
-            .set({"email": email, "uid": cred.user!.uid, "state": 1});
+        await _firestore.collection("users").doc(cred.user!.uid).set({
+          "email": email,
+          "uid": cred.user!.uid,
+          "state": 1,
+          "userdetail": 0
+        });
         res = "Success";
       } else {}
     } catch (e) {
