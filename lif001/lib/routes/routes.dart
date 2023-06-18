@@ -2,9 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lif001/global/snackbars.dart';
 import 'package:lif001/navigatorAdmin.dart';
 import 'package:lif001/navigatorUser.dart';
 import 'package:lif001/pages/LoginAndRegister/avatarAndusername/avatar.dart';
+
+import '../pages/LoginAndRegister/LoginAndRegister.dart';
 
 class routes {
   void login(BuildContext context) async {
@@ -26,6 +29,18 @@ class routes {
             MaterialPageRoute(
               builder: (context) => navigatorUser(),
             ));
+      } else if (userSnap.data()!["state"] == 2) {
+        SnackbarService.showSnackbar(context, 'Hesabınız Aktif Edildi.');
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => navigatorUser(),
+            ));
+      } else if (userSnap.data()!["state"] == 3) {
+        SnackbarService.showSnackbar(context, 'Hesabınız silinmiştir.');
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => const loginpage()),
+            (Route route) => false);
       } else {
         Navigator.push(
             context,

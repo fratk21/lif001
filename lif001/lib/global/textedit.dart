@@ -49,7 +49,7 @@ Widget inputtex(
             obscureText: gizli,
             maxLines: maxline,
             controller: control,
-            cursorColor: orange,
+            cursorColor: color2,
             decoration: InputDecoration(
               labelText: hinttext,
               border: InputBorder.none,

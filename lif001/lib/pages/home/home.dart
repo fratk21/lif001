@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../../services/data.dart';
 
 class homepages extends StatefulWidget {
   const homepages({super.key});
@@ -10,51 +11,34 @@ class homepages extends StatefulWidget {
 }
 
 class _homepagesState extends State<homepages> {
+  FireBaseData firestoreService = FireBaseData();
+  Map<String, dynamic>? user;
+  bool isLoading = false;
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    getdata();
+    getUser();
   }
 
-  int money = 0;
-  bool loading = false;
-  void getdata() async {
-    try {
-      var usersnap = await FirebaseFirestore.instance
-          .collection("users")
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .get();
-      setState(() {
-        money = usersnap.data()!['money'];
-      });
-    } catch (e) {
-      print("eee :$e");
-    }
+  void getUser() async {
+    Map<String, dynamic>? fetchedUser = await firestoreService
+        .getUserById(FirebaseAuth.instance.currentUser!.uid);
+    setState(() {
+      user = fetchedUser;
+      isLoading = true;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return loading
-        ? Center(
-            child: CircularProgressIndicator(),
-          )
+    return isLoading == false
+        ? const Center(child: CircularProgressIndicator())
         : Scaffold(
             appBar: AppBar(
               automaticallyImplyLeading: false,
               leading: Image.asset('assets/logo.png'),
               title: Text("LIF3"),
-              actions: [
-                Row(
-                  children: [
-                    Icon(Icons.monetization_on_outlined),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(money.toString()),
-                  ],
-                )
-              ],
             ),
             body: SingleChildScrollView());
   }
