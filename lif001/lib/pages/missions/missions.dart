@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lif001/pages/missions/missions_add.dart';
 
+import '../../cards/admin_mission_card.dart';
+
 class missions_page extends StatefulWidget {
   const missions_page({super.key});
 
@@ -32,7 +34,7 @@ class _missions_pageState extends State<missions_page> {
         child: SingleChildScrollView(
           child: StreamBuilder(
             stream:
-                FirebaseFirestore.instance.collection('missions').snapshots(),
+                FirebaseFirestore.instance.collection('mission').snapshots(),
             builder: (context,
                 AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
@@ -54,7 +56,8 @@ class _missions_pageState extends State<missions_page> {
                             child:
                                 Text("Herhangi bir görev bulunmamaktadır.")));
                   } else {
-                    result = Container();
+                    result =
+                        admin_mission_card(snapshot.data!.docs[index], context);
                   }
 
                   return result;

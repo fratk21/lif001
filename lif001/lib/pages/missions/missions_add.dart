@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lif001/services/firestore_methods.dart';
+import 'package:lif001/utils/utils.dart';
 
 import '../../global/colors.dart';
 import '../../global/elevatedButton.dart';
@@ -19,6 +21,7 @@ class _missions_addState extends State<missions_add> {
   TextEditingController _gorevadi = TextEditingController();
   TextEditingController _gorevsorusu = TextEditingController();
   TextEditingController _gorevpuani = TextEditingController();
+  firestoreservices _firestoreservis = firestoreservices();
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +119,20 @@ class _missions_addState extends State<missions_add> {
                   CustomElevatedButton(
                     text: "Görev Oluştur",
                     icon: Icons.arrow_forward_ios,
-                    onPressed: () {},
+                    onPressed: () async {
+                      String? res = await _firestoreservis.add_missions(
+                          _gorevadi.text,
+                          _gorevsorusu.text,
+                          int.parse(_gorevpuani.text),
+                          selectedvalue);
+                      if (res == "ok") {
+                        showSnackBar(context, "Görev başarıyla eklendi");
+                      } else {
+                        showSnackBar(
+                            context, "Bir hata oluştu tekrar deneyin : $res");
+                      }
+                      Navigator.pop(context);
+                    },
                   ),
                 ],
               ),

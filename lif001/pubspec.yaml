@@ -49,6 +49,7 @@ dependencies:
   #svg
   flutter_svg: ^2.0.5
   babstrap_settings_screen: ^0.1.5+1
+  uuid: ^3.0.7
 
 dev_dependencies:
   flutter_test:

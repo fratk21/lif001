@@ -33,7 +33,9 @@ class auth_services {
           "email": email,
           "uid": cred.user!.uid,
           "state": 1,
-          "userdetail": 0
+          "userdetail": 0,
+          "createdate": DateTime.now(),
+          "mymissions": []
         });
         res = "Success";
       } else {}
