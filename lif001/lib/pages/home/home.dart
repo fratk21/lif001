@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
+import '../../cards/user_mission_card.dart';
 import '../../services/data.dart';
 
 class homepages extends StatefulWidget {
@@ -38,11 +40,6 @@ class _homepagesState extends State<homepages> {
     return isLoading == false
         ? const Center(child: CircularProgressIndicator())
         : Scaffold(
-            appBar: AppBar(
-              automaticallyImplyLeading: false,
-              leading: Image.asset('assets/logo.png'),
-              title: Text("LIF3"),
-            ),
             body: Padding(
               padding: const EdgeInsets.all(10.0),
               child: SingleChildScrollView(
@@ -74,7 +71,8 @@ class _homepagesState extends State<homepages> {
                                   child: Text(
                                       "Herhangi bir görev bulunmamaktadır.")));
                         } else {
-                          result = Container();
+                          result = user_mission_card(
+                              snapshot.data!.docs[index], context);
                         }
 
                         return result;

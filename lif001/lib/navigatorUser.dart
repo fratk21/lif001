@@ -37,6 +37,7 @@ class _navigatorUserState extends State<navigatorUser> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
+        physics: NeverScrollableScrollPhysics(),
         children: homeScreenItems,
         controller: pageController,
         onPageChanged: onPageChanged,
@@ -51,14 +52,14 @@ class _navigatorUserState extends State<navigatorUser> {
           /// Home
           SalomonBottomBarItem(
             icon: Icon(Icons.home),
-            title: Text("Home"),
+            title: Text("Görevlerim"),
             selectedColor: Colors.purple,
           ),
 
           /// Profile
           SalomonBottomBarItem(
             icon: Icon(Icons.person),
-            title: Text("Profile"),
+            title: Text("Profil"),
             selectedColor: Colors.teal,
           ),
         ],

@@ -50,7 +50,12 @@ dependencies:
   flutter_svg: ^2.0.5
   babstrap_settings_screen: ^0.1.5+1
   uuid: ^3.0.7
-
+  #color
+  flutter_randomcolor: ^1.0.14
+  #card
+  flutter_flip_card: ^0.0.4
+  #image
+  image_picker: ^0.8.9
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -75,6 +80,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
+    - assets/cards/
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
