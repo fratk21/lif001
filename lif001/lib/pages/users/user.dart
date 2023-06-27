@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lif001/pages/users/user_profile.dart';
 import 'package:lif001/services/data.dart';
 
 class userspage extends StatefulWidget {
@@ -12,6 +14,8 @@ class userspage extends StatefulWidget {
 class _userspageState extends State<userspage> {
   FireBaseData firestoreService = FireBaseData();
   List<Map<String, dynamic>> userList = [];
+  final TextEditingController searchController = TextEditingController();
+  bool isShowUsers = false;
 
   @override
   void initState() {
@@ -29,26 +33,110 @@ class _userspageState extends State<userspage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: userList.isEmpty
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : ListView.builder(
-              itemCount: userList.length,
-              itemBuilder: (context, index) {
-                Map<String, dynamic> user = userList[index];
-                return ListTile(
-                  leading: SvgPicture.string(
-                    user['avatar'],
-                    width: 50,
-                    height: 50,
-                  ),
-                  title: Text(user['name'] + ' ' + user['surname']),
-                  subtitle: Text(user['email']),
-                  trailing: Text('Point: ${user['money']}'),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        leading: Icon(Icons.search),
+        title: TextFormField(
+          cursorColor: Colors.white,
+          style: TextStyle(color: Colors.white),
+          controller: searchController,
+          decoration: const InputDecoration(
+              labelText: 'Kullanıcı ara...',
+              labelStyle: TextStyle(
+                  color: Colors.white,
+                  fontFamily: "DancingScript-VariableFont_wght",
+                  fontWeight: FontWeight.bold)),
+          onFieldSubmitted: (String _) {
+            setState(() {
+              if (searchController.text == "") {
+                isShowUsers = false;
+              } else {
+                isShowUsers = true;
+              }
+            });
+            print(_);
+          },
+        ),
+        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.send))],
+      ),
+      body: isShowUsers
+          ? FutureBuilder(
+              future: FirebaseFirestore.instance
+                  .collection('users')
+                  .where(
+                    'name',
+                    isGreaterThanOrEqualTo: searchController.text,
+                  )
+                  .get(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                return ListView.builder(
+                  itemCount: (snapshot.data! as dynamic).docs.length,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => user_profile(
+                                  uid: (snapshot.data! as dynamic).docs[index]
+                                      ["uid"]),
+                            ));
+                      },
+                      child: Card(
+                        elevation: 10,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        child: ListTile(
+                          leading: SvgPicture.string(
+                            (snapshot.data! as dynamic).docs[index]['avatar'],
+                            width: 50,
+                            height: 50,
+                          ),
+                          title: Text(
+                            (snapshot.data! as dynamic).docs[index]['name'],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                 );
               },
-            ),
+            )
+          : userList.isEmpty
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : ListView.builder(
+                  itemCount: userList.length,
+                  itemBuilder: (context, index) {
+                    Map<String, dynamic> user = userList[index];
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  user_profile(uid: user["uid"]),
+                            ));
+                      },
+                      child: ListTile(
+                        leading: SvgPicture.string(
+                          user['avatar'],
+                          width: 50,
+                          height: 50,
+                        ),
+                        title: Text(user['name'] + ' ' + user['surname']),
+                        subtitle: Text(user['email']),
+                        trailing: Text('Point: ${user['money']}'),
+                      ),
+                    );
+                  },
+                ),
     );
   }
 }

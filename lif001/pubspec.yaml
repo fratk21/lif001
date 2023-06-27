@@ -56,6 +56,8 @@ dependencies:
   flutter_flip_card: ^0.0.4
   #image
   image_picker: ^0.8.9
+  #confeti
+  confetti: ^0.7.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
