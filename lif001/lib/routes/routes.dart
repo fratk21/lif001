@@ -6,6 +6,7 @@ import 'package:lif001/global/snackbars.dart';
 import 'package:lif001/navigatorAdmin.dart';
 import 'package:lif001/navigatorUser.dart';
 import 'package:lif001/pages/LoginAndRegister/avatarAndusername/avatar.dart';
+import 'package:lif001/services/data.dart';
 
 import '../pages/LoginAndRegister/LoginAndRegister.dart';
 
@@ -30,6 +31,7 @@ class routes {
               builder: (context) => navigatorUser(),
             ));
       } else if (userSnap.data()!["state"] == 2) {
+        FireBaseData().nofreezeAccount(FirebaseAuth.instance.currentUser!.uid);
         SnackbarService.showSnackbar(context, 'Hesabınız Aktif Edildi.');
         Navigator.push(
             context,

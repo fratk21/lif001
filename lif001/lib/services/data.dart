@@ -30,6 +30,10 @@ class FireBaseData {
     await _usersCollection.doc(userId).update({'state': 2});
   }
 
+  Future<void> nofreezeAccount(String userId) async {
+    await _usersCollection.doc(userId).update({'state': 1});
+  }
+
   Future<void> deleteAccount(String userId) async {
     await _usersCollection.doc(userId).update({'state': 3});
   }

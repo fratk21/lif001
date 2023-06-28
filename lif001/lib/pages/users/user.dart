@@ -33,17 +33,20 @@ class _userspageState extends State<userspage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         automaticallyImplyLeading: false,
-        leading: Icon(Icons.search),
+        leading: Icon(Icons.search, color: Colors.black),
         title: TextFormField(
-          cursorColor: Colors.white,
-          style: TextStyle(color: Colors.white),
+          cursorColor: Colors.black,
+          style: TextStyle(color: Colors.black),
           controller: searchController,
           decoration: const InputDecoration(
               labelText: 'Kullanıcı ara...',
               labelStyle: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontFamily: "DancingScript-VariableFont_wght",
                   fontWeight: FontWeight.bold)),
           onFieldSubmitted: (String _) {
@@ -57,7 +60,10 @@ class _userspageState extends State<userspage> {
             print(_);
           },
         ),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.send))],
+        actions: [
+          IconButton(
+              onPressed: () {}, icon: Icon(Icons.send, color: Colors.black))
+        ],
       ),
       body: isShowUsers
           ? FutureBuilder(
@@ -133,6 +139,13 @@ class _userspageState extends State<userspage> {
                         title: Text(user['name'] + ' ' + user['surname']),
                         subtitle: Text(user['email']),
                         trailing: Text('Point: ${user['money']}'),
+                        tileColor: user["state"] == 1
+                            ? Colors.green[100]
+                            : user["state"] == 2
+                                ? Colors.yellow
+                                : user["state"] == 0
+                                    ? Colors.blue[100]
+                                    : Colors.red[100],
                       ),
                     );
                   },
