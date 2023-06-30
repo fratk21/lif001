@@ -2,6 +2,8 @@ import 'package:babstrap_settings_screen/babstrap_settings_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lif001/pages/users/qrcode.dart';
+import 'package:lif001/pages/users/user_missions.dart';
 import 'package:lif001/pages/users/users_info.dart';
 import 'package:lif001/utils/utils.dart';
 
@@ -70,6 +72,7 @@ class _user_profileState extends State<user_profile> {
                   ),
 
                   SettingsGroup(
+                    settingsGroupTitle: "Kullanıcı Bilgileri",
                     items: [
                       SettingsItem(
                         onTap: () {},
@@ -77,6 +80,19 @@ class _user_profileState extends State<user_profile> {
                         iconStyle: IconStyle(),
                         title: 'Puan',
                         subtitle: user!['money'].toString(),
+                      ),
+                      SettingsItem(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => qrcode(snap: user),
+                              ));
+                        },
+                        icons: CupertinoIcons.qrcode,
+                        iconStyle: IconStyle(),
+                        title: 'QrCode',
+                        subtitle: "Kullanıcının Qrcodunu görün",
                       ),
                       SettingsItem(
                         onTap: () {
@@ -103,7 +119,14 @@ class _user_profileState extends State<user_profile> {
                         subtitle: "Kullanıcıya bildirim yolla ",
                       ),
                       SettingsItem(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    user_missions(uid: widget.uid),
+                              ));
+                        },
                         icons: Icons.contacts_rounded,
                         iconStyle: IconStyle(
                           backgroundColor: Colors.purple,
@@ -111,19 +134,23 @@ class _user_profileState extends State<user_profile> {
                         title: 'Görevler',
                         subtitle: "Kullanıcının yaptığı görevleri görüntüle",
                       ),
-                      SettingsItem(
-                        onTap: () async {
-                          await FireBaseData().deleteAccount(widget.uid);
-                          showSnackBar(context, "Kullanıcı Banlandı");
-                        },
-                        icons: Icons.delete_forever,
-                        iconStyle: IconStyle(
-                          backgroundColor: Colors.red,
-                        ),
-                        title: 'Kullanıcıyı Banla',
-                      ),
                     ],
                   ),
+                  SettingsGroup(
+                      settingsGroupTitle: "Kullanıcı İşlemleri",
+                      items: [
+                        SettingsItem(
+                          onTap: () async {
+                            await FireBaseData().deleteAccount(widget.uid);
+                            showSnackBar(context, "Kullanıcı Banlandı");
+                          },
+                          icons: Icons.delete_forever,
+                          iconStyle: IconStyle(
+                            backgroundColor: Colors.red,
+                          ),
+                          title: 'Kullanıcıyı Banla',
+                        ),
+                      ])
                 ],
               ),
       ),

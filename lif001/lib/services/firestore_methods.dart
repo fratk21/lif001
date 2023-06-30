@@ -74,20 +74,21 @@ class firestoreservices {
   }
 
   Future<String?> missionacceptimage(snap, Uint8List file) async {
-    String missionid = const Uuid().v1();
+    String mymissionid = const Uuid().v1();
     String photoUrl =
         await StorageMethods().uploadImageToStorage('answer', file, false);
     _firestore
         .collection("users")
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .collection("missions")
-        .doc(missionid)
+        .doc(mymissionid)
         .set({
       "gorevadi": snap["gorevadi"],
       "soru": snap["soru"],
       "puan": snap["puan"],
       "type": snap["type"],
-      "missionid": missionid,
+      "missionid": snap["missionid"],
+      "mymissionid": mymissionid,
       "createtime": DateTime.now(),
       "answer": photoUrl,
     });

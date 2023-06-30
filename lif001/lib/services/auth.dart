@@ -35,7 +35,7 @@ class auth_services {
           "state": 1,
           "userdetail": 0,
           "createdate": DateTime.now(),
-          "mymissions": []
+          "mymissions": [],
         });
         res = "Success";
       } else {}
