@@ -60,9 +60,10 @@ dependencies:
   confetti: ^0.7.0
   #qr
   qr_flutter: ^4.1.0
-
+  #izin
   permission_handler: ^10.3.0
-
+  #bildirim
+  onesignal_flutter: ^3.5.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

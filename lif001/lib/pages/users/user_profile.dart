@@ -2,6 +2,7 @@ import 'package:babstrap_settings_screen/babstrap_settings_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lif001/pages/users/notif.dart';
 import 'package:lif001/pages/users/qrcode.dart';
 import 'package:lif001/pages/users/user_missions.dart';
 import 'package:lif001/pages/users/users_info.dart';
@@ -110,7 +111,14 @@ class _user_profileState extends State<user_profile> {
                         subtitle: "Kullanıcının bilgilerini göster",
                       ),
                       SettingsItem(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    notif_screen(uid: widget.uid),
+                              ));
+                        },
                         icons: Icons.notification_add,
                         iconStyle: IconStyle(
                           backgroundColor: Colors.green,

@@ -26,6 +26,7 @@ class firestoreservices {
         "createDate": DateTime.now(),
         "state": 1
       });
+
       res = "ok";
       return res;
     } catch (e) {
@@ -63,11 +64,19 @@ class firestoreservices {
       "createtime": DateTime.now(),
       "answer": text,
     });
+    var my = await FirebaseFirestore.instance
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    int mymoney = my.data()!["money"];
+    int a = snap["puan"];
+    int money = mymoney + a;
     _firestore
         .collection("users")
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .update({
-      'mymissions': FieldValue.arrayUnion([snap["missionid"]])
+      'mymissions': FieldValue.arrayUnion([snap["missionid"]]),
+      'money': money
     });
     res = "ok";
     return res;
@@ -92,11 +101,19 @@ class firestoreservices {
       "createtime": DateTime.now(),
       "answer": photoUrl,
     });
+    var my = await FirebaseFirestore.instance
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    int mymoney = my.data()!["money"];
+    int a = snap["puan"];
+    int money = mymoney + a;
     _firestore
         .collection("users")
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .update({
-      'mymissions': FieldValue.arrayUnion([snap["missionid"]])
+      'mymissions': FieldValue.arrayUnion([snap["missionid"]]),
+      'money': money
     });
     res = "ok";
     return res;

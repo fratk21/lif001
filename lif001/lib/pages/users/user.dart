@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lif001/pages/users/notif.dart';
 import 'package:lif001/pages/users/user_profile.dart';
 import 'package:lif001/services/data.dart';
 
@@ -62,7 +63,14 @@ class _userspageState extends State<userspage> {
         ),
         actions: [
           IconButton(
-              onPressed: () {}, icon: Icon(Icons.send, color: Colors.black))
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => notif_screen(uid: "1"),
+                    ));
+              },
+              icon: Icon(Icons.send, color: Colors.black))
         ],
       ),
       body: isShowUsers

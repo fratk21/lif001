@@ -5,9 +5,17 @@ import 'package:lif001/pages/LoginAndRegister/LoginAndRegister.dart';
 import 'package:lif001/pages/onboarding/onboarding.dart';
 import 'package:lif001/pages/slash.dart';
 import 'package:lif001/routes/routes.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
+  OneSignal.shared.setAppId("e399c2bc-2919-4053-b4ca-5e9a67cca2f9");
+  OneSignal.shared.promptUserForPushNotificationPermission().then(
+    (accepted) {
+      print("accepted permission : $accepted");
+    },
+  );
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
@@ -31,6 +39,12 @@ class MyApp extends StatelessWidget {
           // Notice that the counter didn't reset back to zero; the application
           // is not restarted.
           primarySwatch: Colors.blue,
+          buttonTheme: ButtonThemeData(
+            buttonColor:
+                Colors.yellow, // Butonların rengini burada ayarlayabilirsiniz.
+            textTheme: ButtonTextTheme
+                .primary, // Buton metinlerinin rengini değiştirmek için textTheme kullanabilirsiniz.
+          ),
         ),
         home: FirebaseAuth.instance.currentUser?.uid == null
             ? const loginpage()
